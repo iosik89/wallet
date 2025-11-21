@@ -1,0 +1,7 @@
+services:
+
+  wallet:
+    build:
+      context: "/Users/ruslaniosofatov/IdeaProjects/wallet"
+
+  postgres:
