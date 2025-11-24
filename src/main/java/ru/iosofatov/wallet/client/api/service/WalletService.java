@@ -42,7 +42,6 @@ public class WalletService {
 
             case WITHDRAW -> withdraw(wallet, request.amount());
         }
-        walletRepository.save(wallet);
     }
 
     private void deposit(WalletEntity wallet, BigDecimal amount) {
