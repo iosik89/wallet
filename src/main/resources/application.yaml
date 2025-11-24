@@ -1,10 +1,11 @@
 server:
-  port: 8080
+  port: ${APP_PORT}
+
 spring:
   datasource:
-    url: jdbc:postgresql://db:5432/wallet
-    username: admin
-    password: password
+    url: ${DB_URL}
+    username: ${POSTGRES_USER}
+    password: ${POSTGRES_PASSWORD}
     driver-class-name: org.postgresql.Driver
 
   jpa:
@@ -14,3 +15,4 @@ spring:
 
   liquibase:
     change-log: classpath:/db/changelog/db.changelog-master.yaml
+
