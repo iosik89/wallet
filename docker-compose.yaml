@@ -1,7 +1,29 @@
 services:
+  db:
+    image: postgres:16
+    container_name: wallet_db
+    environment:
+      POSTGRES_DB: wallet
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
 
   wallet:
-    build:
-      context: "/Users/ruslaniosofatov/IdeaProjects/wallet"
+    build: .
+    container_name: wallet_app
+    environment:
+      DB_URL: ${DB_URL}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      APP_PORT: ${APP_PORT}
+    depends_on:
+      - db
+    ports:
+      - ${APP_PORT}:${APP_PORT}
 
-  postgres:
+volumes:
+  pgdata:

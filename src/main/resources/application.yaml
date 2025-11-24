@@ -1,5 +1,16 @@
+server:
+  port: 8080
 spring:
   datasource:
-    url: jdbc:postgresql://db:5432/walletdb
-    username: postgres
+    url: jdbc:postgresql://db:5432/wallet
+    username: admin
     password: password
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+
+  liquibase:
+    change-log: classpath:/db/changelog/db.changelog-master.yaml
