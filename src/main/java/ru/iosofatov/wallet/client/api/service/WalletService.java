@@ -25,12 +25,12 @@ public class WalletService {
      * Главный метод — обрабатывает любую операцию.
      * Автоматически перезапускается при OptimisticLockException до 5 раз.
      */
+    @Transactional
     @Retryable(
             retryFor = OptimisticLockException.class,
             maxAttempts = 5,
             backoff = @Backoff(delay = 10) // 10ms задержка между попытками
     )
-    @Transactional
     public void processOperation(WalletDto request) {
 
         WalletEntity wallet = walletRepository.findById(request.walletId())
