@@ -29,7 +29,7 @@ public class WalletService {
     @Retryable(
             retryFor = OptimisticLockException.class,
             maxAttempts = 5,
-            backoff = @Backoff(delay = 10) // 10ms задержка между попытками
+            backoff = @Backoff(delay = 50) // 10ms задержка между попытками
     )
     public void processOperation(WalletDto request) {
 
