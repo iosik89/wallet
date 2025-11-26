@@ -24,13 +24,17 @@ public class WalletService {
     /**
      * Главный метод — обрабатывает любую операцию.
      * Автоматически перезапускается при OptimisticLockException до 5 раз.
+     * (не вызывать из класса определяющего метод)Spring обёртка срабатывает
+     * только при вызове извне, через Spring Bean.
+     * Внутри класса вызов идёт напрямую, аннотации игнорируются → retries не будет.
      */
-    @Transactional
+
     @Retryable(
             retryFor = OptimisticLockException.class,
             maxAttempts = 5,
             backoff = @Backoff(delay = 50) // 10ms задержка между попытками
     )
+    @Transactional
     public void processOperation(WalletDto request) {
 
         WalletEntity wallet = walletRepository.findById(request.walletId())
