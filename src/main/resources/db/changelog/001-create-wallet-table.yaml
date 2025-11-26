@@ -2,7 +2,11 @@ databaseChangeLog:
   - changeSet:
       id: create-wallets
       author: ruslan
-      runOnChange: true
+      preConditions:
+        onFail: MARK_RAN
+        not:
+          tableExist: wallets
+      runOnChange: false
       changes:
         - createTable:
             tableName: wallets
